@@ -3,138 +3,171 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Painel DALA CURE OS</title>
+  <title>Painel de Comando – Ecossistema DALA</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Inter', sans-serif;
-      background: #f9f9f9;
-      color: #333;
+      margin: 0;
+      padding: 0;
+      background-color: #eef4fb;
     }
+
     header {
-      background: linear-gradient(90deg, #7b1e1e, #f7c600);
+      background: linear-gradient(90deg, #004d7a, #008793, #00bf72);
       color: white;
-      padding: 30px 20px;
+      padding: 1.5rem;
       text-align: center;
     }
+
     header h1 {
-      font-size: 2.2em;
-      margin-bottom: 10px;
+      margin: 0;
+      font-size: 1.8em;
     }
+
+    header p {
+      font-size: 0.95em;
+      margin-top: 8px;
+    }
+
     nav {
-      background: white;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background-color: #fff;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    #main {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      padding: 15px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      flex-direction: column;
     }
-    nav a {
-      text-decoration: none;
-      color: #7b1e1e;
-      font-weight: 600;
-      background: #f0f0f0;
-      padding: 8px 15px;
-      border-radius: 8px;
-      transition: background 0.3s;
+
+    #sidebar {
+      background: #f9f9f9;
+      padding: 1rem;
     }
-    nav a:hover {
-      background: #e0e0e0;
-    }
-    section {
-      max-width: 1200px;
-      margin: auto;
-      padding: 30px 20px;
-    }
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+
+    .project-info {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
       transition: transform 0.2s;
     }
-    .card:hover {
-      transform: translateY(-5px);
+
+    .project-info:hover {
+      transform: scale(1.02);
     }
-    .card h3 {
-      margin-bottom: 10px;
-      color: #7b1e1e;
+
+    .project-info h3 {
+      margin: 0 0 5px;
+      color: #004d7a;
     }
+
+    #map {
+      height: 70vh;
+      width: 100%;
+    }
+
     footer {
       text-align: center;
-      padding: 20px;
-      background: #7b1e1e;
+      font-size: 12px;
+      padding: 12px;
+      background: #333;
       color: white;
-      margin-top: 40px;
+      margin-top: 20px;
+    }
+
+    @media (min-width: 768px) {
+      #main {
+        flex-direction: row;
+      }
+      #sidebar {
+        width: 30%;
+      }
+      #map {
+        width: 70%;
+      }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>DALA CURE OS</h1>
-    <p>Ecossistema de Cura e Inovação para a Nova Humanidade</p>
-  </header>
+<header>
+  <h1>🗺️ Painel de Comando – Ecossistema DALA</h1>
+  <p>Monitoramento de Iniciativas | Inclusão | Saúde | Educação | Cultura</p>
+</header>
 
-  <nav>
-    <a href="#protocolos">Protocolos Médicos</a>
-    <a href="#alimentacao">Fichas Alimentares</a>
-    <a href="#agro">Projetos Agronômicos</a>
-    <a href="#biofiltro">Biofiltro</a>
-    <a href="#autismo">TECLA – Autismo</a>
-    <a href="#documentos">Documentos</a>
-  </nav>
+<div id="main">
+  <div id="sidebar">
+    <h2>📌 Projetos Ativos</h2>
 
-  <section>
-    <div class="card-grid">
-
-      <div class="card" id="protocolos">
-        <h3>🧬 Protocolos Médicos</h3>
-        <p>Soluções para malária, AVC, Alzheimer, cólera, doenças mentais, doenças diarreicas e mais.</p>
-      </div>
-
-      <div class="card" id="alimentacao">
-        <h3>🥣 Fichas Técnicas Alimentares</h3>
-        <p>Mais de 100 receitas para hospitais, com benefícios nutricionais e funcionais.</p>
-      </div>
-
-      <div class="card" id="agro">
-        <h3>🌱 Projetos Agronômicos</h3>
-        <p>Modelos híbridos e produtivos, incluindo o sistema Kuala Híbrido, para zonas rurais e urbanas.</p>
-      </div>
-
-      <div class="card" id="biofiltro">
-        <h3>💧 BIOFILTRO</h3>
-        <p>Projeto de purificação de água para contextos comunitários e urbanos.</p>
-      </div>
-
-      <div class="card" id="autismo">
-        <h3>🧠 TECLA – Autismo</h3>
-        <p>Protocolo inspirado por experiência real, com protótipo funcional inicial criado.</p>
-      </div>
-
-      <div class="card" id="documentos">
-        <h3>📂 Documentos e Relatórios</h3>
-        <p>PDFs, apresentações, e-books e relatórios para download e partilha pública.</p>
-      </div>
-
+    <div class="project-info">
+      <h3>🎓 Cako Ceto – Luanda</h3>
+      <p>Formação em cultura, cidadania e tecnologia para jovens.</p>
+      <small>Status: Em formação</small>
     </div>
-  </section>
 
-  <footer>
-    <p>&copy; 2025 DALA CURE OS. Todos os direitos reservados.</p>
-    <p>Desenhado por Dala De Carvalho ✊🏽</p>
-  </footer>
+    <div class="project-info">
+      <h3>🧠 TECLA – Bié</h3>
+      <p>Comunicação neurodiversa para crianças autistas sensíveis.</p>
+      <small>Status: Piloto</small>
+    </div>
+
+    <div class="project-info">
+      <h3>💉 VacTrack – Huambo</h3>
+      <p>Planeamento de campanhas de vacinação com IA e simulação.</p>
+      <small>Status: Em execução</small>
+    </div>
+  </div>
+
+  <div id="map"></div>
+</div>
+
+<footer>
+  Criado por Dala De Carvalho ✊🏽 – Junho 2025 | Versão 1.1
+</footer>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([-11.2, 17.8], 6);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap',
+  }).addTo(map);
+
+  const projetos = [
+    {
+      nome: "Cako Ceto – Luanda",
+      coords: [-8.8383, 13.2344],
+      descricao: "Formação em cultura, cidadania e tecnologia para jovens.",
+      status: "Em formação",
+      emoji: "🎓"
+    },
+    {
+      nome: "TECLA – Bié",
+      coords: [-12.5763, 17.6085],
+      descricao: "Comunicação neurodiversa para crianças autistas sensíveis.",
+      status: "Piloto",
+      emoji: "🧠"
+    },
+    {
+      nome: "VacTrack – Huambo",
+      coords: [-12.7761, 15.7395],
+      descricao: "Planeamento de campanhas de vacinação com IA e simulação.",
+      status: "Em execução",
+      emoji: "💉"
+    }
+  ];
+
+  projetos.forEach(p => {
+    L.marker(p.coords)
+      .addTo(map)
+      .bindPopup(`<strong>${p.emoji} ${p.nome}</strong><br>${p.descricao}<br><em>Status: ${p.status}</em>`);
+  });
+</script>
 
 </body>
 </html>
