@@ -1,88 +1,75 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Painel de Comando – Ecossistema DALA</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       background-color: #eef4fb;
     }
-
     header {
-      background: linear-gradient(90deg, #004d7a, #008793, #00bf72);
+      background-color: #005792;
       color: white;
-      padding: 1.5rem;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 1.8em;
-    }
-
-    header p {
-      font-size: 0.95em;
-      margin-top: 8px;
-    }
-
-    nav {
-      background-color: #fff;
       padding: 1rem;
       text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
-
-    #main {
-      display: flex;
-      flex-direction: column;
+    #map {
+      height: 80vh;
+      width: 100%;
     }
-
     #sidebar {
-      background: #f9f9f9;
       padding: 1rem;
+      background: #f9f9f9;
     }
-
     .project-info {
       background: #fff;
       padding: 1rem;
       border-radius: 10px;
-      margin-bottom: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      transition: transform 0.2s;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-
-    .project-info:hover {
-      transform: scale(1.02);
-    }
-
-    .project-info h3 {
-      margin: 0 0 5px;
-      color: #004d7a;
-    }
-
-    #map {
-      height: 70vh;
-      width: 100%;
-    }
-
     footer {
       text-align: center;
       font-size: 12px;
-      padding: 12px;
-      background: #333;
-      color: white;
-      margin-top: 20px;
+      padding: 10px;
+      background: #ccc;
     }
-
+    #admin-form {
+      display: none;
+      margin-top: 15px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+    }
+    button {
+      background: #005792;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #004472;
+    }
     @media (min-width: 768px) {
       #main {
-        flex-direction: row;
+        display: flex;
       }
       #sidebar {
         width: 30%;
@@ -102,24 +89,36 @@
 
 <div id="main">
   <div id="sidebar">
-    <h2>📌 Projetos Ativos</h2>
-
-    <div class="project-info">
-      <h3>🎓 Cako Ceto – Luanda</h3>
-      <p>Formação em cultura, cidadania e tecnologia para jovens.</p>
-      <small>Status: Em formação</small>
+    <h2>📌 Projectos Ativos</h2>
+    <div id="projetos-lista">
+      <div class="project-info">
+        <h3>🎓 Cako Ceto – Luanda</h3>
+        <p>Formação em cultura, cidadania e tecnologia para jovens.</p>
+        <small>Status: Em formação</small>
+      </div>
+      <div class="project-info">
+        <h3>🧠 TECLA – Bié</h3>
+        <p>Comunicação neurodiversa para crianças autistas sensíveis.</p>
+        <small>Status: Piloto</small>
+      </div>
+      <div class="project-info">
+        <h3>💉 VacTrack – Huambo</h3>
+        <p>Planeamento de campanhas de vacinação com IA e simulação.</p>
+        <small>Status: Em execução</small>
+      </div>
     </div>
 
-    <div class="project-info">
-      <h3>🧠 TECLA – Bié</h3>
-      <p>Comunicação neurodiversa para crianças autistas sensíveis.</p>
-      <small>Status: Piloto</small>
-    </div>
+    <button onclick="ativarAdmin()">Sou Administrador</button>
 
-    <div class="project-info">
-      <h3>💉 VacTrack – Huambo</h3>
-      <p>Planeamento de campanhas de vacinação com IA e simulação.</p>
-      <small>Status: Em execução</small>
+    <div id="admin-form">
+      <h3>Adicionar Novo Projeto</h3>
+      <input type="text" id="nome" placeholder="Nome do Projeto">
+      <input type="text" id="descricao" placeholder="Descrição do Projeto">
+      <input type="text" id="status" placeholder="Status (ex: Em execução)">
+      <input type="text" id="emoji" placeholder="Emoji (ex: 🚀)">
+      <input type="number" step="any" id="lat" placeholder="Latitude">
+      <input type="number" step="any" id="lng" placeholder="Longitude">
+      <button onclick="adicionarProjeto()">Adicionar ao Mapa</button>
     </div>
   </div>
 
@@ -127,7 +126,7 @@
 </div>
 
 <footer>
-  Criado por Dala De Carvalho ✊🏽 – Junho 2025 | Versão 1.1
+  Criado por Dala De Carvalho ✊🏽 – Junho 2025 | v1.1
 </footer>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -138,35 +137,78 @@
     attribution: '&copy; OpenStreetMap',
   }).addTo(map);
 
+  // Projetos fixos
   const projetos = [
     {
-      nome: "Cako Ceto – Luanda",
+      nome: "🎓 Cako Ceto – Luanda",
       coords: [-8.8383, 13.2344],
       descricao: "Formação em cultura, cidadania e tecnologia para jovens.",
-      status: "Em formação",
-      emoji: "🎓"
+      status: "Em formação"
     },
     {
-      nome: "TECLA – Bié",
+      nome: "🧠 TECLA – Bié",
       coords: [-12.5763, 17.6085],
       descricao: "Comunicação neurodiversa para crianças autistas sensíveis.",
-      status: "Piloto",
-      emoji: "🧠"
+      status: "Piloto"
     },
     {
-      nome: "VacTrack – Huambo",
+      nome: "💉 VacTrack – Huambo",
       coords: [-12.7761, 15.7395],
       descricao: "Planeamento de campanhas de vacinação com IA e simulação.",
-      status: "Em execução",
-      emoji: "💉"
+      status: "Em execução"
     }
   ];
 
   projetos.forEach(p => {
     L.marker(p.coords)
       .addTo(map)
-      .bindPopup(`<strong>${p.emoji} ${p.nome}</strong><br>${p.descricao}<br><em>Status: ${p.status}</em>`);
+      .bindPopup(`<strong>${p.nome}</strong><br>${p.descricao}<br><em>Status: ${p.status}</em>`);
   });
+
+  // ADMINISTRADOR
+  function ativarAdmin() {
+    const senha = prompt("Digite a senha do administrador:");
+    if (senha === "dala2025") {
+      document.getElementById("admin-form").style.display = "block";
+      alert("Acesso de administrador concedido.");
+    } else {
+      alert("Senha incorreta.");
+    }
+  }
+
+  function adicionarProjeto() {
+    const nome = document.getElementById('nome').value;
+    const descricao = document.getElementById('descricao').value;
+    const status = document.getElementById('status').value;
+    const emoji = document.getElementById('emoji').value;
+    const lat = parseFloat(document.getElementById('lat').value);
+    const lng = parseFloat(document.getElementById('lng').value);
+
+    if (!nome || !descricao || isNaN(lat) || isNaN(lng)) {
+      alert("Por favor preencha todos os campos corretamente.");
+      return;
+    }
+
+    // Adiciona ao mapa
+    L.marker([lat, lng])
+      .addTo(map)
+      .bindPopup(`<strong>${emoji} ${nome}</strong><br>${descricao}<br><em>Status: ${status}</em>`);
+
+    // Adiciona à lista
+    const lista = document.getElementById("projetos-lista");
+    const bloco = document.createElement("div");
+    bloco.className = "project-info";
+    bloco.innerHTML = `<h3>${emoji} ${nome}</h3><p>${descricao}</p><small>Status: ${status}</small>`;
+    lista.appendChild(bloco);
+
+    // Limpar campos
+    document.getElementById('nome').value = "";
+    document.getElementById('descricao').value = "";
+    document.getElementById('status').value = "";
+    document.getElementById('emoji').value = "";
+    document.getElementById('lat').value = "";
+    document.getElementById('lng').value = "";
+  }
 </script>
 
 </body>
