@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel DALA CURE OS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(90deg, #7b1e1e, #f7c600);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+    nav {
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      padding: 15px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      text-decoration: none;
+      color: #7b1e1e;
+      font-weight: 600;
+      background: #f0f0f0;
+      padding: 8px 15px;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    nav a:hover {
+      background: #e0e0e0;
+    }
+    section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card h3 {
+      margin-bottom: 10px;
+      color: #7b1e1e;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #7b1e1e;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>DALA CURE OS</h1>
+    <p>Ecossistema de Cura e Inovação para a Nova Humanidade</p>
+  </header>
+
+  <nav>
+    <a href="#protocolos">Protocolos Médicos</a>
+    <a href="#alimentacao">Fichas Alimentares</a>
+    <a href="#agro">Projetos Agronômicos</a>
+    <a href="#biofiltro">Biofiltro</a>
+    <a href="#autismo">TECLA – Autismo</a>
+    <a href="#documentos">Documentos</a>
+  </nav>
+
+  <section>
+    <div class="card-grid">
+
+      <div class="card" id="protocolos">
+        <h3>🧬 Protocolos Médicos</h3>
+        <p>Soluções para malária, AVC, Alzheimer, cólera, doenças mentais, doenças diarreicas e mais.</p>
+      </div>
+
+      <div class="card" id="alimentacao">
+        <h3>🥣 Fichas Técnicas Alimentares</h3>
+        <p>Mais de 100 receitas para hospitais, com benefícios nutricionais e funcionais.</p>
+      </div>
+
+      <div class="card" id="agro">
+        <h3>🌱 Projetos Agronômicos</h3>
+        <p>Modelos híbridos e produtivos, incluindo o sistema Kuala Híbrido, para zonas rurais e urbanas.</p>
+      </div>
+
+      <div class="card" id="biofiltro">
+        <h3>💧 BIOFILTRO</h3>
+        <p>Projeto de purificação de água para contextos comunitários e urbanos.</p>
+      </div>
+
+      <div class="card" id="autismo">
+        <h3>🧠 TECLA – Autismo</h3>
+        <p>Protocolo inspirado por experiência real, com protótipo funcional inicial criado.</p>
+      </div>
+
+      <div class="card" id="documentos">
+        <h3>📂 Documentos e Relatórios</h3>
+        <p>PDFs, apresentações, e-books e relatórios para download e partilha pública.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 DALA CURE OS. Todos os direitos reservados.</p>
+    <p>Desenhado por Dala De Carvalho ✊🏽</p>
+  </footer>
+
+</body>
+</html>
