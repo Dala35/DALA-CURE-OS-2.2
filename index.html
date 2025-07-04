@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Painel Global – DALA CURE OS</title>
+  <title>Painel de Comando – DALA CURE OS</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
     body {
@@ -13,7 +13,7 @@
       background-color: #eef4fb;
     }
     header {
-      background-color: #005792;
+      background-color: #003153;
       color: white;
       padding: 1rem;
       text-align: center;
@@ -55,60 +55,58 @@
 <body>
 
 <header>
-  <h1>🌍 Painel Global – DALA CURE OS</h1>
-  <p>Radar vivo de projectos em Angola e no mundo</p>
+  <h1>🌍 Painel de Comando – DALA CURE OS</h1>
+  <p>Mapeamento em tempo real de soluções de impacto</p>
 </header>
 
 <div id="main">
   <div id="sidebar">
     <h2>📌 Projectos Ativos</h2>
-    <div id="lista-projetos"></div>
+    <div id="projetos-container"></div>
   </div>
   <div id="map"></div>
 </div>
 
 <footer>
-  &copy; 2025 Dala De Carvalho – Ecossistema DALA CURE OS ✊🏽
+  Criado por Dala De Carvalho ✊🏽 – Julho 2025 | v2.0
 </footer>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
   const map = L.map('map').setView([-11.2, 17.8], 6);
-
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap'
+    attribution: '&copy; OpenStreetMap',
   }).addTo(map);
 
-  // Substitui aqui pela tua URL real do Google Apps Script
-  const url = "https://script.google.com/macros/s/URL_DO_TEU_SCRIPT/exec";
+  const url = "https://script.google.com/macros/s/AKfycbwbwCq5BoJitmc6R-5IiE7ff3VKpiKkd-Dbq_Ig2jy5zUTMqDzGj1SqvzZE67NCsycP/exec";
 
   fetch(url)
     .then(res => res.json())
     .then(data => {
-      const lista = document.getElementById('lista-projetos');
-      data.forEach(p => {
-        // Mapa
-        L.marker([p.latitude, p.longitude])
-          .addTo(map)
-          .bindPopup(`<strong>${p.emoji} ${p.nome}</strong><br>${p.descricao}<br><em>Status: ${p.status}</em>`);
+      const container = document.getElementById('projetos-container');
 
-        // Sidebar
+      data.forEach(p => {
+        // Criar cartão lateral
         const div = document.createElement('div');
-        div.className = 'project-info';
+        div.className = "project-info";
         div.innerHTML = `
-          <h3>${p.emoji} ${p.nome}</h3>
+          <h3>${p.emoji || ""} ${p.nome}</h3>
           <p>${p.descricao}</p>
           <small>Status: ${p.status}</small>
         `;
-        lista.appendChild(div);
+        container.appendChild(div);
+
+        // Adicionar marcador ao mapa
+        if (p.latitude && p.longitude) {
+          const marker = L.marker([parseFloat(p.latitude), parseFloat(p.longitude)]).addTo(map);
+          marker.bindPopup(`<strong>${p.emoji || ""} ${p.nome}</strong><br>${p.descricao}<br><em>Status: ${p.status}</em>`);
+        }
       });
     })
     .catch(err => {
-      console.error("Erro ao buscar projetos:", err);
-      document.getElementById('lista-projetos').innerHTML = "<p>Erro ao carregar os dados.</p>";
+      console.error("Erro ao carregar dados:", err);
     });
 </script>
 
 </body>
 </html>
-  
