@@ -1,10 +1,9 @@
-
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Painel de Controle Global – DALA CURE OS</title>
+  <title>Painel Global – DALA CURE OS</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
     body {
@@ -46,8 +45,6 @@
       }
       #sidebar {
         width: 30%;
-        overflow-y: auto;
-        max-height: 80vh;
       }
       #map {
         width: 70%;
@@ -58,20 +55,20 @@
 <body>
 
 <header>
-  <h1>🌍 Painel de Controle Global – DALA CURE OS</h1>
-  <p>Monitoramento de Projetos Globais com Integração em Tempo Real</p>
+  <h1>🌍 Painel Global – DALA CURE OS</h1>
+  <p>Radar vivo de projectos em Angola e no mundo</p>
 </header>
 
 <div id="main">
   <div id="sidebar">
-    <h2>📌 Projetos Ativos</h2>
-    <div id="projetos-container"></div>
+    <h2>📌 Projectos Ativos</h2>
+    <div id="lista-projetos"></div>
   </div>
   <div id="map"></div>
 </div>
 
 <footer>
-  Desenvolvido com propósito ✊🏽 Dala De Carvalho – Julho 2025 | v2.0
+  &copy; 2025 Dala De Carvalho – Ecossistema DALA CURE OS ✊🏽
 </footer>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -79,37 +76,39 @@
   const map = L.map('map').setView([-11.2, 17.8], 6);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap',
+    attribution: '&copy; OpenStreetMap'
   }).addTo(map);
 
-  const planilhaURL = 'https://script.google.com/macros/s/AKfycbwbwCq5BoJitmc6R-5IiE7ff3VKpiKkd-Dbq_Ig2jy5zUTMqDzGj1SqvzZE67NCsycP/exec';
+  // Substitui aqui pela tua URL real do Google Apps Script
+  const url = "https://script.google.com/macros/s/URL_DO_TEU_SCRIPT/exec";
 
-  fetch(planilhaURL)
+  fetch(url)
     .then(res => res.json())
     .then(data => {
-      const container = document.getElementById('projetos-container');
+      const lista = document.getElementById('lista-projetos');
+      data.forEach(p => {
+        // Mapa
+        L.marker([p.latitude, p.longitude])
+          .addTo(map)
+          .bindPopup(`<strong>${p.emoji} ${p.nome}</strong><br>${p.descricao}<br><em>Status: ${p.status}</em>`);
 
-      data.projetos.forEach(p => {
+        // Sidebar
         const div = document.createElement('div');
         div.className = 'project-info';
         div.innerHTML = `
-          <h3>${p.emoji || '📍'} ${p.nome}</h3>
+          <h3>${p.emoji} ${p.nome}</h3>
           <p>${p.descricao}</p>
-          <small><strong>Status:</strong> ${p.status}</small>
+          <small>Status: ${p.status}</small>
         `;
-        container.appendChild(div);
-
-        if (p.lat && p.lng) {
-          L.marker([parseFloat(p.lat), parseFloat(p.lng)])
-            .addTo(map)
-            .bindPopup(`<strong>${p.emoji || '📍'} ${p.nome}</strong><br>${p.descricao}<br><em>Status: ${p.status}</em>`);
-        }
+        lista.appendChild(div);
       });
     })
     .catch(err => {
-      alert('Erro ao carregar dados: ' + err);
+      console.error("Erro ao buscar projetos:", err);
+      document.getElementById('lista-projetos').innerHTML = "<p>Erro ao carregar os dados.</p>";
     });
 </script>
 
 </body>
 </html>
+  
